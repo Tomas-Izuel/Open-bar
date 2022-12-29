@@ -1,3 +1,51 @@
 .navbar{
-    width: 100%;
+    background-color: #E3E3E3;
+    border-radius: 2rem 2rem 0 0;
+    transition: all 1s;
+    z-index: 1;
+    margin-top: 5rem;
+}
+
+.navbar svg{
+    fill: #242424;
+    transition: all 0.5s;
+}
+
+.navbar p{
+    color: #242424;
+    transition: all 0.5s;
+}
+
+.navButton{
+    padding: 1rem;
+    margin: 0 2rem;
+}
+
+.navButton:hover > *{
+    color: #449DD1;
+    fill: #449DD1;
+}
+
+.selected{
+    background-color: #449DD1;
+    border-radius: 0.5rem;
+    box-shadow: #0E0E52 0 4px 1px 0px;
+}
+
+.selected:hover > *{
+    color: #242424;
+    fill: #242424;
+}
+
+.cart{
+    background-color: #78C0E0;
+    padding: 2.5rem;
+    border-radius: 50%;
+    transform: translateY(-2rem);
+    box-shadow: #0E0E52 0 8px 1px 0px;
+}
+
+.cart:hover > svg{
+    fill: #242424;
+    transform: rotate(-360deg);
 }

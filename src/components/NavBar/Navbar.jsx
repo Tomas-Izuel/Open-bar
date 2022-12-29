@@ -1,17 +1,21 @@
 import React from 'react'
+import "./navbar.css"
+import BeerWidget from '../BeerWidget/BeerWidget'
 import CartWidget from '../CartWidget/CartWidget'
+import DrinksWidget from '../DrinksWidget/DrinksWidget'
+import FoodWidget from '../FoodWidget/FoodWidget'
+import PromoWidget from '../PromoWidget/PromoWidget'
 
 function Navbar() {
   return (
-    <nav className='navbar flex justify-between items-center p-10'>
-        <ul className='flex gap-5 items-center'>
-            <li className='text-xl font-semibold'><a href="">Open Bar</a></li>
-            <li className=''><a href="">Comidas</a></li>
-            <li className=''><a href="">Tragos</a></li>
-            <li className=''><a href="">Cervezas</a></li>
-            <li className=''><a href="">Promos</a></li>
+    <nav className='navbar'>
+        <ul className='flex justify-between items-center'>
+          <li> <BeerWidget /> </li>
+          <li> <DrinksWidget /> </li>
+          <li> <CartWidget/> </li>
+          <li> <FoodWidget/> </li>
+          <li> <PromoWidget/> </li>
         </ul>
-        <CartWidget />
     </nav>
   )
 }
