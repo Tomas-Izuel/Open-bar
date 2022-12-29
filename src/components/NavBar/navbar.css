@@ -1,9 +1,8 @@
 .navbar{
     background-color: #E3E3E3;
     border-radius: 2rem 2rem 0 0;
-    transition: all 1s;
     z-index: 1;
-    margin-top: 5rem;
+    padding: 0 1rem;
 }
 
 .navbar svg{
@@ -17,8 +16,7 @@
 }
 
 .navButton{
-    padding: 1rem;
-    margin: 0 2rem;
+    padding: 0.5rem;
 }
 
 .navButton:hover > *{
@@ -30,6 +28,7 @@
     background-color: #449DD1;
     border-radius: 0.5rem;
     box-shadow: #0E0E52 0 4px 1px 0px;
+    transform: translateY(-0.5rem);
 }
 
 .selected:hover > *{
@@ -39,7 +38,7 @@
 
 .cart{
     background-color: #78C0E0;
-    padding: 2.5rem;
+    padding: 1rem;
     border-radius: 50%;
     transform: translateY(-2rem);
     box-shadow: #0E0E52 0 8px 1px 0px;
