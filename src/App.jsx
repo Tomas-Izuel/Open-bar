@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "./components/NavBar/Navbar";
 import "./App.css";
 import logo from './assets/media/Logo.png'
+import TopItemsContainer from "./components/TopItemsContainer/TopItemsContainer";
 
 export default function App() {
   return (
@@ -11,7 +12,11 @@ export default function App() {
           <img src={logo} alt="" className="brand"/>
         </a>
       </header>
-      <main></main>
+      <main>
+        <TopItemsContainer 
+          route="topBeers"
+        />
+      </main>
       <footer>
         <Navbar />
       </footer>
