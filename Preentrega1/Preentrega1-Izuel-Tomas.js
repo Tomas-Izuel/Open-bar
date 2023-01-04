@@ -55,7 +55,7 @@ class ProductManager {
   }
 
   getProdcuts(){
-    return this.products
+    return this.#products
   }
 
   getProductById(id){
