@@ -13,14 +13,15 @@ class Product {
 }
 
 class ProductManager {
+    #products
   constructor() {
-    this.products = [];
+    this.#products = [];
     this.idManager = 1;
   }
 
   validateProduct(product) {
     let flag = false;
-    this.products.forEach((producto) => { //Valido que no se repida el atributo code
+    this.#products.forEach((producto) => { //Valido que no se repida el atributo code
       producto.code === product.code && (flag = true);
     });
     if (!flag) {
@@ -34,7 +35,7 @@ class ProductManager {
       ) {
         return true; //Si cumple todas las condiciones retorna verdadero
       } else {
-        return "Error: No debe haber casilleros vacios";
+        return `Error: No se pudo cargar ${product.title}, no debe haber casilleros vacios`;
       }
     } else {
       return `Error: El producto ${product.title} tiene el mismo codigo que otro producto`;
@@ -46,7 +47,7 @@ class ProductManager {
     if (validacion === true) {
       product.setId(this.idManager);
       this.idManager += 1;
-      this.products.push(product);
+      this.#products.push(product);
       return `Carga de producto ${product.title} exitosa`
     } else {
       return validacion
@@ -58,7 +59,7 @@ class ProductManager {
   }
 
   getProductById(id){
-    return this.products.find(product => product.id === id)
+    return (this.#products.find(product => product.id === id)) || 'Error: Producto no encontrado' //Devuelve el producto, en caso de no encontrarlo devuelve un error
   }
 }
 
@@ -75,7 +76,7 @@ const producto2 = new Product(
 
 const producto3 = new Product("Queso cremoso", "Queso cremoso", 400, "c", 4564, 150);
 
-const producto4 = new Product('', '', '', '', '', '')
+const producto4 = new Product('Manteca', '', '', '', '', '')
 
 const ManejadorProductos = new ProductManager();
 
@@ -83,9 +84,9 @@ console.log(ManejadorProductos.addProduct(producto1))
 
 console.log(ManejadorProductos.addProduct(producto2))
 
-console.log(ManejadorProductos.addProduct(producto3))
+console.log(ManejadorProductos.addProduct(producto3)) //Producto con el mismo codigo que producto 1, debe dar error
 
-console.log(ManejadorProductos.addProduct(producto4))
+console.log(ManejadorProductos.addProduct(producto4)) //Producto con casilleros vacios, debe dar error
 
 
 console.log('Metodo getProducts')
@@ -93,3 +94,6 @@ console.log(ManejadorProductos.getProdcuts())
 
 console.log('Metodo getProductById')
 console.log(ManejadorProductos.getProductById(2))
+
+console.log('Metodo getProductById')
+console.log(ManejadorProductos.getProductById(10)) //Find de un producto inexistende, debe dar error
