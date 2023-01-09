@@ -15,6 +15,7 @@ export default function App() {
       <main>
         <TopItemsContainer 
           route="topBeers"
+          section="beers"
         />
       </main>
       <footer>

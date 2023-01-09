@@ -1,0 +1,43 @@
+.itemCard {
+    width: 15rem;
+    height: 15rem;
+    background-color: #E3E3E3;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow:
+        1.2px 1.1px 1.9px rgba(0, 0, 0, 0.039),
+        2.9px 2.6px 4.3px rgba(0, 0, 0, 0.056),
+        5.1px 4.6px 7.7px rgba(0, 0, 0, 0.069),
+        8.5px 7.7px 12.8px rgba(0, 0, 0, 0.081),
+        14px 12.7px 21.2px rgba(0, 0, 0, 0.094),
+        24.5px 22.2px 37px rgba(0, 0, 0, 0.111),
+        53px 48px 80px rgba(0, 0, 0, 0.15);
+}
+
+.itemText {
+    height: 4rem;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.itemText h3{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.imageItem {
+    height: 11rem;
+    object-fit: cover;
+    object-position: 25% 85%;
+    aspect-ratio: 16/9;
+    box-shadow:
+        2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+        12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+        22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+        41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+        100px 100px 80px rgba(0, 0, 0, 0.07);
+}
