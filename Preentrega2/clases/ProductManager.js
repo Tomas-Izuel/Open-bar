@@ -1,62 +1,93 @@
-const fs = require('fs')
+const fs = require("fs");
+const Prod = require("./Product.js");
 
 class ProductManager {
-  constructor() {
-    this.idManager = 1;
+  constructor(path) {
+    this.path = path;
   }
 
-  validateProduct(product) {
-    let flag = false;
-    this.#products.forEach((producto) => {
-      //Valido que no se repida el atributo code
-      producto.code === product.code && (flag = true);
-    });
-    if (!flag) {
-      if (
-        //Valido que los campos no esten vacios
-        product.title !== "" &&
-        product.description !== "" &&
-        product.price !== "" &&
-        product.thumbnail !== "" &&
-        product.code !== "" &&
-        product.stock !== ""
-      ) {
-        return true; //Si cumple todas las condiciones retorna verdadero
-      } else {
-        return `Error: No se pudo cargar ${product.title}, no debe haber casilleros vacios`;
+  #validateProduct(product) { //Este metodo es unicamente de validacion, por esto esta privado, no debe ser accesible por el usuario
+    if (
+      //Valido que los campos no esten vacios
+      product.title !== "" &&
+      product.description !== "" &&
+      product.price !== "" &&
+      product.thumbnail !== "" &&
+      product.code !== "" &&
+      product.stock !== ""
+    ) {
+      const products = this.getProducts();
+      let flag = false;
+      products.forEach((element) => {
+        if (element.code === product.code) { // Valido que no se repita el codigo
+          flag = true;
+          return false;
+        }
+      });
+      if (!flag) {
+        return true;
       }
     } else {
-      return `Error: El producto ${product.title} tiene el mismo codigo que otro producto`;
+      return false;
     }
   }
 
-  addProduct(product) {
-    const validacion = this.validateProduct(product);
-    if (validacion === true) {
-      product.setId(this.idManager);
-      this.idManager += 1;
-      this.#products.push(product);
-      return `Carga de producto ${product.title} exitosa`;
+  getProducts() {
+    if (fs.existsSync(this.path)) {
+      const products = JSON.parse(fs.readFileSync(this.path, "utf8"));
+      return products;
     } else {
-      return validacion;
+      fs.writeFileSync(this.path, "[]");
+      return fs.readFileSync(this.path, "utf8");
     }
   }
 
-  async getProdcuts() {
-    try{
-      const products = await fs.promises.readFile('../storage/products.json', 'utf-8')
-      return products
-    }
-    catch(err){
-      console.error(err);
+  addProduct(title, description, price, thumbnail, code, stock) {
+    const products = this.getProducts();
+    //Creo el Product con los valores pasados como parametros
+    const product = new Prod.Product(
+      title,
+      description,
+      price,
+      thumbnail,
+      code,
+      stock,
+      products.length + 1 //Otorgo el id en base al largo del array
+    );
+
+    if (this.#validateProduct(product)) {
+      products.push(product);
+      fs.writeFileSync(this.path, JSON.stringify(products));
+      return "Producto agregado con exito";
+    } else {
+      return "No se pudo agregar el producto";
     }
   }
 
   getProductById(id) {
-    return (
-      this.#products.find((product) => product.id === id) ||
-      "Error: Producto no encontrado"
-    ); //Devuelve el producto, en caso de no encontrarlo devuelve un error
+    const products = this.getProducts();
+    return products[id - 1];
+  }
+
+  deleteProduct(id) {
+    const products = this.getProducts();
+    const newProducts = products.filter((product) => product.id !== id); //Creo un nuevo array con los productos sin el que se desea borrar y sobreescribo el .json
+    fs.writeFileSync(this.path, JSON.stringify(newProducts));
+    return "Producto eliminado con exito";
+  }
+
+  updateProduct(id, selector, value) { //El usuario pasa como parametro el atributo que desea modificar, y se asigna dinamicamente a los atributos del objeto. El switch tambien me otorga cierta seguridad ya que si el usuario ingresa un valor que no corresponde a un atributo, no se creara un atributo nuevo con este valor, simplemente se ignorara.
+    const products = this.getProducts();
+    switch(selector) {
+      case "title": products[id-1].title = value; break;
+      case "description": products[id-1].description = value; break;
+      case "price": products[id-1].price = value; break;
+      case "thumbnail": products[id-1].thumbnail = value; break;
+      case "code": products[id-1].code = value; break;
+      case "stock": products[id-1].stock = value; break;
+    }
+    fs.writeFileSync(this.path, JSON.stringify(products))
+    return 'Objeto editado correctamente'
   }
 }
 

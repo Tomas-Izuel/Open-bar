@@ -1,38 +1,20 @@
-const Prod = require('./clases/Product.js')
 const ProdManager = require('./clases/ProductManager.js')
 
+const pm = new ProdManager.ProductManager('./storage/products.json');
 
-const producto1 = new Prod.Product("Queso", "Queso en barra", 500, "a", 4564, 300);
-
-const producto2 = new Prod.Product(
-  "Chocolate",
-  "Chocolate negro",
-  100,
-  "b",
-  3030,
-  700
-);
-
-const producto3 = new Prod.Product("Queso cremoso", "Queso cremoso", 400, "c", 4564, 150);
-
-const producto4 = new Prod.Product('Manteca', '', '', '', '', '')
-
-const ManejadorProductos = new ProdManager.ProductManager();
-
-console.log(ManejadorProductos.addProduct(producto1))
-
-console.log(ManejadorProductos.addProduct(producto2))
-
-console.log(ManejadorProductos.addProduct(producto3)) //Producto con el mismo codigo que producto 1, debe dar error
-
-console.log(ManejadorProductos.addProduct(producto4)) //Producto con casilleros vacios, debe dar error
+console.log(pm.getProducts())
 
 
-console.log('Metodo getProducts')
-console.log(ManejadorProductos.getProdcuts())
+//Por cuestion de responsabilidad me parecio una mejor opcion que el Product Manager fuese el que crea los productos, porque no me parecia adecuado que el usuario tenga que crear los objetos de producto para pasarlos. Por eso se pasan todos los valores, y el product manager se encarga de crear Product y agregarlo al .json, ademas de las validaciones correspondientes
 
-console.log('Metodo getProductById')
-console.log(ManejadorProductos.getProductById(2))
+console.log(pm.addProduct("Scotish", "Una cerveza roja con un gusto unico", 700, "https://images.pexels.com/photos/1672304/pexels-photo-1672304.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", 1001, 250))
 
-console.log('Metodo getProductById')
-console.log(ManejadorProductos.getProductById(10)) //Find de un producto inexistende, debe dar error
+console.log(pm.getProductById(2)) //Muestra por consola el producto
+
+setTimeout(() => { //El setTimeout es para poder apreciar el cambio en el .json
+  console.log(pm.updateProduct(2, 'title', 'Session Ipa'))
+}, 2000)
+
+setTimeout(() => { //De igual manera aca
+  console.log(pm.deleteProduct(2))
+}, 5000)
