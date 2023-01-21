@@ -1,0 +1,18 @@
+.homeContainer{
+    padding-top: 10rem;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4rem;
+    background-image: url('../../../assets/media/Background.png');
+    background-position: center;
+}
+
+.homeBrand{
+    z-index: 1;
+    width: 50vw;
+    transform: translate(-10vw);
+}

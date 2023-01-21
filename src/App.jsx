@@ -1,26 +1,28 @@
-import { useState } from "react";
+import { Children, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import Navbar from "./components/NavBar/Navbar";
+
 import "./App.css";
-import logo from './assets/media/Logo.png'
-import TopItemsContainer from "./components/TopItemsContainer/TopItemsContainer";
+import ItemListContainer from "./components/containers/ItemListContainer/ItemListContainer";
+import HomeContainer from "./components/containers/HomeContainer/HomeContainer";
+import ItemDetailContainer from "./components/containers/ItemDetailContainer/ItemDetailContainer"
+import CartContainer from "./components/containers/CartContainer/CartContainer"
+import Header from "./components/Header/Header";
 
 export default function App() {
   return (
-    <>
-      <header>
-        <a href="" className="flex justify-start items-center gap-4">
-          <img src={logo} alt="" className="brand"/>
-        </a>
-      </header>
-      <main>
-        <TopItemsContainer 
-          route="topBeers"
-          section="beers"
-        />
-      </main>
-      <footer>
-        <Navbar />
-      </footer>
-    </>
+    <BrowserRouter>
+    <Header/>
+      <Routes>
+        <Route path="/home" element={<HomeContainer />} />
+        <Route path="/" element={<ItemListContainer/>}/>
+        <Route path="/products/:productsId" element={<ItemListContainer />} />
+        <Route path="/detail/:detailId" element={<ItemDetailContainer/>} />
+        <Route path="/cart" element={<CartContainer />} />
+        <Route path="*" element={<HomeContainer/>}/>
+      </Routes>
+      <Navbar />
+    </BrowserRouter>
   );
 }

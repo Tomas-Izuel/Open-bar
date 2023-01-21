@@ -1,0 +1,69 @@
+[
+    {
+        "category": "beers",
+        "name" : "IPA",
+        "price" : 800,
+        "description" : "Una IPA es una cerveza de alta graduación alcohólica (entre 5º y 7º), amargor y aroma intensos y cierta complejidad en el paladar. El nombre hace referencia a India Pale Ale, un estilo cervecero que se caracteriza por la alta concentración de lúpulo",
+        "image": "https://images.pexels.com/photos/14686092/pexels-photo-14686092.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "id": 1
+    },
+    {
+        "category": "beers",
+        "name" : "Session IPA",
+        "price" : 800,
+        "description" : "Presenta un prominente aroma a lúpulo con una o más características de lúpulos americanos (cítricas, florales, pináceas, resinosas, especiadas, a frutas tropicales, frutas de carozo, bayas, melón, etc). Muchas versiones utilizan dry hopping y pueden tener un aroma a lúpulo fresco adicional; esto es deseable, pero no requerido.",
+        "image": "https://images.pexels.com/photos/14430630/pexels-photo-14430630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "id": 2
+    },
+    {
+        "category": "beers",
+        "name" : "Scotish",
+        "price" : 800,
+        "description" : "Presenta un prominente aroma a lúpulo con una o más características de lúpulos americanos (cítricas, florales, pináceas, resinosas, especiadas, a frutas tropicales, frutas de carozo, bayas, melón, etc). Muchas versiones utilizan dry hopping y pueden tener un aroma a lúpulo fresco adicional; esto es deseable, pero no requerido.",
+        "image": "https://images.pexels.com/photos/14370552/pexels-photo-14370552.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "id": 3
+    },
+    {
+        "category": "beers",
+        "name" : "Stout",
+        "price" : 800,
+        "description" : "Presenta un prominente aroma a lúpulo con una o más características de lúpulos americanos (cítricas, florales, pináceas, resinosas, especiadas, a frutas tropicales, frutas de carozo, bayas, melón, etc). Muchas versiones utilizan dry hopping y pueden tener un aroma a lúpulo fresco adicional; esto es deseable, pero no requerido.",
+        "image": "https://images.pexels.com/photos/14244335/pexels-photo-14244335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "id": 4
+    },
+    {
+        "category": "drinks",
+        "name" : "Mojito",
+        "price" : 1300,
+        "description" : "Presenta un prominente aroma a lúpulo con una o más características de lúpulos americanos (cítricas, florales, pináceas, resinosas, especiadas, a frutas tropicales, frutas de carozo, bayas, melón, etc). Muchas versiones utilizan dry hopping y pueden tener un aroma a lúpulo fresco adicional; esto es deseable, pero no requerido.",
+        "image": "https://images.pexels.com/photos/109275/pexels-photo-109275.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "id": 5
+    }
+    ,
+    {
+        "category": "drinks",
+        "name" : "Negroni",
+        "price" : 1300,
+        "description" : "Presenta un prominente aroma a lúpulo con una o más características de lúpulos americanos (cítricas, florales, pináceas, resinosas, especiadas, a frutas tropicales, frutas de carozo, bayas, melón, etc). Muchas versiones utilizan dry hopping y pueden tener un aroma a lúpulo fresco adicional; esto es deseable, pero no requerido.",
+        "image": "https://images.pexels.com/photos/4762725/pexels-photo-4762725.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "id": 6
+    }
+    ,
+    {
+        "category": "drinks",
+        "name" : "Gin Tonic",
+        "price" : 1200,
+        "description" : "Presenta un prominente aroma a lúpulo con una o más características de lúpulos americanos (cítricas, florales, pináceas, resinosas, especiadas, a frutas tropicales, frutas de carozo, bayas, melón, etc). Muchas versiones utilizan dry hopping y pueden tener un aroma a lúpulo fresco adicional; esto es deseable, pero no requerido.",
+        "image": "https://images.pexels.com/photos/225236/pexels-photo-225236.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "id": 7
+    }
+    ,
+    {
+        "category": "drinks",
+        "name" : "Manhattan",
+        "price" : 1500,
+        "description" : "Presenta un prominente aroma a lúpulo con una o más características de lúpulos americanos (cítricas, florales, pináceas, resinosas, especiadas, a frutas tropicales, frutas de carozo, bayas, melón, etc). Muchas versiones utilizan dry hopping y pueden tener un aroma a lúpulo fresco adicional; esto es deseable, pero no requerido.",
+        "image": "https://images.pexels.com/photos/6469416/pexels-photo-6469416.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "id": 8
+    }
+]
