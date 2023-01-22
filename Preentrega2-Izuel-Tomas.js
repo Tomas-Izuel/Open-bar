@@ -1,4 +1,4 @@
-const ProdManager = require('./clases/ProductManager.js')
+const ProdManager = require('./src/clases/ProductManager.js')
 
 const pm = new ProdManager.ProductManager('./storage/products.json');
 
