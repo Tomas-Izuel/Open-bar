@@ -1,12 +1,12 @@
-import fs from 'fs';
-import { Product } from "./Product.js";
+import fs from "fs";
 
-export class ProductManager {
+class ProductManager {
   constructor(path) {
     this.path = path;
   }
 
-  async #validateProduct(product) { //Este metodo es unicamente de validacion, por esto esta privado, no debe ser accesible por el usuario
+  async #validateProduct(product) {
+    //Este metodo es unicamente de validacion, por esto esta privado, no debe ser accesible por el usuario
     if (
       //Valido que los campos no esten vacios
       product.category !== "" &&
@@ -15,12 +15,14 @@ export class ProductManager {
       product.price !== "" &&
       product.image !== "" &&
       product.code !== "" &&
-      product.stock !== ""
+      product.stock !== "" &&
+      product.status !== ""
     ) {
       const products = await this.getProducts();
       let flag = false;
       products.forEach((element) => {
-        if (element.code === product.code) { // Valido que no se repita el codigo
+        if (element.code === product.code) {
+          // Valido que no se repita el codigo
           flag = true;
           return false;
         }
@@ -35,7 +37,7 @@ export class ProductManager {
 
   async getProducts() {
     if (fs.existsSync(this.path)) {
-      const products = await fs.promises.readFile(this.path,'utf-8')
+      const products = await fs.promises.readFile(this.path, "utf-8");
       return JSON.parse(products);
     } else {
       await fs.writeFile(this.path, "[]");
@@ -45,12 +47,16 @@ export class ProductManager {
 
   async addProduct(product) {
     const products = await this.getProducts();
-    const id = products[products.length - 1].id + 1
-    product.id = id
+    const id = products[products.length - 1].id + 1;
+    product.id = id;
 
     if (await this.#validateProduct(product)) {
       products.push(product);
-      await fs.promises.writeFile(this.path,JSON.stringify(products,null,'\t'),'utf-8')
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify(products, null, "\t"),
+        "utf-8"
+      );
       return "Producto agregado con exito";
     } else {
       return "No se pudo agregar el producto";
@@ -59,7 +65,7 @@ export class ProductManager {
 
   async getProductById(id) {
     const products = await this.getProducts();
-    const prod = products.find(product => product.id === id);
+    const prod = products.find((product) => product.id === id);
     return prod;
   }
 
@@ -70,20 +76,23 @@ export class ProductManager {
     return "Producto eliminado con exito";
   }
 
-  async updateProduct(id, product) { //El usuario pasa como parametro el atributo que desea modificar, y se asigna dinamicamente a los atributos del objeto. El switch tambien me otorga cierta seguridad ya que si el usuario ingresa un valor que no corresponde a un atributo, no se creara un atributo nuevo con este valor, simplemente se ignorara.
+  async updateProduct(id, product) {
+    //El usuario pasa como parametro el atributo que desea modificar, y se asigna dinamicamente a los atributos del objeto. El switch tambien me otorga cierta seguridad ya que si el usuario ingresa un valor que no corresponde a un atributo, no se creara un atributo nuevo con este valor, simplemente se ignorara.
     const products = await this.getProducts();
     products.forEach((prod) => {
       if (prod.id === id) {
-        prod.category = product.category
-        prod.name = product.name
-        prod.price = products.price
-        prod.description = product.description
-        prod.image = product.image
-        prod.code = product.code
-        prod.stock = product.stock
+        prod.category = product.category;
+        prod.name = product.name;
+        prod.price = products.price;
+        prod.description = product.description;
+        prod.image = product.image;
+        prod.code = product.code;
+        prod.stock = product.stock;
       }
-    })
-    await fs.promises.writeFile(this.path, JSON.stringify(products))
-    return 'Producto editado correctamente'
+    });
+    await fs.promises.writeFile(this.path, JSON.stringify(products));
+    return "Producto editado correctamente";
   }
 }
+
+export default ProductManager;

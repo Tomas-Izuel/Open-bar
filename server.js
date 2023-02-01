@@ -1,54 +1,32 @@
-import express from 'express';
-import { ProductManager } from './src/clases/ProductManager.js';
-
-const pm = new ProductManager('./src/storage/products.json');
+import express from "express";
+import routerProducts from "./src/router/products.router.js";
+import routerCart from "./src/router/cart.router.js";
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    const message = `
-    <h1 style='color:blue;'>Bienvenidos al servidor express</h1>
-    `
-    res.send(message)
-})
+app.use("/api/products", routerProducts);
+app.use("/api/cart", routerCart);
 
-app.get('/products',async (req, res) => {
-    const {limit} = req.query
-    const products = await pm.getProducts(parseInt())
-    const newProduct = products.slice(0, limit)
-    res.json({mesage:'Products sent succesfully',newProduct})
-})
-
-app.get('/products/:idProduct',async (req, res) => {
-    const {idProduct} = req.params
-    const id = parseInt(idProduct)
-    const product = await pm.getProductById(id)
-    res.json({mesage:`Product with id ${id} sent succesfully`,product})
-})
-
-app.post('/products', async (req, res) => {
-    const prod = req.body
-    res.json(await pm.addProduct(prod))
-})
-
-app.delete('/products/:idProduct',async (req, res) => {
-    const {idProduct} = req.params
-    const id = parseInt(idProduct)
-    res.json(await pm.deleteProduct(id))
-})
-
-app.put('/products/:idProduct', async (req, res) => {
-    const {idProduct} = req.params
-    const prod = req.body
-    res.json(await pm.updateProduct(parseInt(idProduct), prod))
-})
-
-
-app.listen(8080,() => {
-    console.log('')
-    console.info('      * Server runing on: http://localhost:8080')
-    console.warn('      * Listen on port 8080')
-    console.log('')
-})
+app.listen(8080, () => {
+  //Los setTimeout no tienen ninguna utilidad, lo hice para probar los colores de la consola
+  console.log("\u001b[" + 34 + "m" + "Starting server..." + "\u001b[0m");
+  setTimeout(() => {
+    console.log("\u001b[" + 34 + "m" + "Done" + "\u001b[0m");
+    setTimeout(() => {
+      console.log("");
+      console.log(
+        "\u001b[" +
+          32 +
+          "m" +
+          "      * Server runing on: http://localhost:8080" +
+          "\u001b[0m"
+      );
+      console.log(
+        "\u001b[" + 32 + "m" + "      * Listen on port 8080" + "\u001b[0m"
+      );
+      console.log("");
+    }, 800);
+  }, 1500);
+});
