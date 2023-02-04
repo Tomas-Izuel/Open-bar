@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import ItemListCart from "../../ItemListCart/ItemListCart";
 
 const CartContainer = () => {
   return (
-    <div>CartContainer</div>
-  )
-}
+    <>
+      <ItemListCart />
+    </>
+  );
+};
 
-export default CartContainer
+export default CartContainer;

@@ -1,28 +1,28 @@
-.navbar{
-    transform: translateY(-100%);
+.navbar {
     width: 100%;
     position: fixed;
+    bottom: 0%;
     background-color: #E3E3E3;
     border-radius: 2rem 2rem 0 0;
     z-index: 1;
     padding: 0 1rem;
 }
 
-.navbar svg{
+.navbar svg {
     fill: #242424;
     transition: all 0.5s;
 }
 
-.navbar p{
+.navbar p {
     color: #242424;
     transition: all 0.5s;
 }
 
-.navButton{
+.navButton {
     padding: 0.5rem;
 }
 
-.selected > *{
+.selected>* {
     transition: all 1s;
     background-color: #FF9800;
     border-radius: 0.5rem;
@@ -30,12 +30,12 @@
     transform: translateY(-0.5rem);
 }
 
-.selected:hover > *{
+.selected:hover>* {
     color: #242424;
     fill: #242424;
 }
 
-.cart{
+.cart {
     background-color: #FF9800;
     padding: 1rem;
     border-radius: 50%;
@@ -43,7 +43,7 @@
     box-shadow: #161616 0 6px 1px 0px;
 }
 
-.cart:hover > svg{
+.cart:hover>svg {
     fill: #242424;
     transform: rotate(-360deg);
 }

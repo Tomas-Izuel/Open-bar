@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ItemList from "../../ItemList/ItemList";
+import Loader from "../../Loader/Loader";
 
 const ItemListContainer = () => {
   const path = "../../../storage/storage.json";
@@ -26,10 +27,11 @@ const ItemListContainer = () => {
   }, [productsId]);
   return (
     <>
-      <ItemList 
-        products={products}
-        productsId={productsId}
-      />
+      {products.length === 0 ? (
+        <Loader />
+      ) : (
+        <ItemList products={products} productsId={productsId} />
+      )}
     </>
   );
 };

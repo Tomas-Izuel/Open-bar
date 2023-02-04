@@ -2,7 +2,7 @@ import ItemCard from "../ItemCard/ItemCard";
 
 const ItemList = ({ products }, { productsId }) => {
   return (
-    <section className="w-screen h-screen flex justify-start items-start py-24 flex-col gap-10">
+    <section className="flex justify-start items-start pt-24 pb-36 flex-col gap-10">
       <h1 className=" self-center text-xl">Our catalogue of {productsId}</h1>
       <div>
         <div className="flex justify-center items-center flex-wrap gap-5">

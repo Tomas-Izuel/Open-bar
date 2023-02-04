@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ItemDetail from "../../ItemDetail/ItemDetail";
+import Loader from "../../Loader/Loader";
 
 const ItemDetailContainer = () => {
   const path = "../../../storage/storage.json";
@@ -13,13 +14,14 @@ const ItemDetailContainer = () => {
       .then((response) => response.json())
       .then((objects) => {
         setProduct(objects.find((prod) => prod.id === parseInt(detailId)));
+      })
+      .catch((err) => {
+        alert(err);
       });
   }, []);
 
   return (
-    <>
-      <ItemDetail product={product} />
-    </>
+    <>{product !== undefined ? <ItemDetail product={product} /> : <Loader />}</>
   );
 };
 
