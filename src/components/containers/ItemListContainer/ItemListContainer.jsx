@@ -1,28 +1,25 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { getItemByCategory, getItems } from "../../../services/firebase";
 import ItemList from "../../ItemList/ItemList";
 import Loader from "../../Loader/Loader";
 
 const ItemListContainer = () => {
-  const path = "../../../storage/storage.json";
   const [products, setProducts] = useState([]);
   const { productsId } = useParams();
 
   useEffect(() => {
     if (productsId) {
-      fetch(path)
-        .then((response) => response.json())
-        .then((json) => {
-          setProducts(
-            json.filter((product) => product.category === productsId)
-          );
-        });
+      // getItems().then((response) => {
+      //   setProducts(
+      //     response.filter((product) => product.category === productsId)
+      //   );
+      // });
+      getItemByCategory(productsId).then((response) => {
+        setProducts(response);
+      });
     } else {
-      fetch(path)
-        .then((response) => response.json())
-        .then((json) => {
-          setProducts(json);
-        });
+      getItems().then((response) => setProducts(response));
     }
   }, [productsId]);
   return (

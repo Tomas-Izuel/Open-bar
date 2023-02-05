@@ -26,12 +26,12 @@ const ItemListCart = ({ products }) => {
             <div className="flex justify-center items-center flex-wrap gap-5">
               {cartList.map((p) => (
                 <ItemCardCart
-                  name={p.product.name}
-                  image={p.product.image}
+                  name={p.name}
+                  image={p.image}
                   cant={p.cant}
-                  price={p.product.price}
-                  id={p.product.id}
-                  key={p.product.id}
+                  price={p.price}
+                  id={p.id}
+                  key={Math.random() * 1000000000}
                 />
               ))}
             </div>

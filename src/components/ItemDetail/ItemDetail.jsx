@@ -16,7 +16,7 @@ const ItemDetail = ({ product }) => {
     }
   };
   const addToCart = () => {
-    addToCartContext({ product, cant: counter });
+    addToCartContext({ ...product, cant: counter });
 
     Swal.fire({
       position: "center",

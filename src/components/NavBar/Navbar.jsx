@@ -13,13 +13,19 @@ function Navbar() {
       <ul className="flex justify-between items-center">
         <li>
           {" "}
-          <NavLink className={({isActive}) => isActive ? 'selected' : ''} to="/products/beers">
+          <NavLink
+            className={({ isActive }) => (isActive ? "selected" : "")}
+            to="/products/beers"
+          >
             <BeerWidget />
           </NavLink>{" "}
         </li>
         <li>
           {" "}
-          <NavLink className={({isActive}) => isActive ? 'selected' : ''} to="/products/drinks">
+          <NavLink
+            className={({ isActive }) => (isActive ? "selected" : "")}
+            to="/products/drinks"
+          >
             <DrinksWidget />
           </NavLink>
         </li>
@@ -31,13 +37,19 @@ function Navbar() {
         </li>
         <li>
           {" "}
-          <NavLink className={({isActive}) => isActive ? 'selected' : ''} to="/products/food">
+          <NavLink
+            className={({ isActive }) => (isActive ? "selected" : "")}
+            to="/products/foods"
+          >
             <FoodWidget />
           </NavLink>
         </li>
         <li>
           {" "}
-          <NavLink className={({isActive}) => isActive ? 'selected' : ''} to="/products/sale">
+          <NavLink
+            className={({ isActive }) => (isActive ? "selected" : "")}
+            to="/products/coffes"
+          >
             <PromoWidget />
           </NavLink>
         </li>

@@ -8,7 +8,7 @@ export const CartContextProvider = ({ children }) => {
   const addToCartContext = (p) => {
     let flag = false;
     cartList.forEach((prod) => {
-      if (prod.product.id === p.product.id) {
+      if (prod.id === p.id) {
         prod.cant += p.cant;
         flag = true;
       }
@@ -29,14 +29,14 @@ export const CartContextProvider = ({ children }) => {
   const getTotal = () => {
     let total = 0;
     cartList.forEach((prod) => {
-      total += prod.product.price * prod.cant;
+      total += prod.price * prod.cant;
     });
     return total;
   };
   const deleteProduct = (id) => {
     const newCart = [];
     cartList.forEach((prod) => {
-      if (prod.product.id !== id) {
+      if (prod.id !== id) {
         newCart.push(prod);
       }
     });
