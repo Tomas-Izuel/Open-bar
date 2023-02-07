@@ -7,9 +7,9 @@ const price = document.getElementById("price");
 const image = document.getElementById("image");
 const code = document.getElementById("code");
 const stock = document.getElementById("stock");
+const cardContainer = document.getElementById("cardContainer");
 
 createProductForm.onsubmit = (e) => {
-  e.preventDefault();
   const product = {
     category: category.value,
     name: name.value,
@@ -20,6 +20,17 @@ createProductForm.onsubmit = (e) => {
   };
 };
 
-socket.on("sendProduct", (data) => {
-  console.log(data);
+socket.on("sendProduct", (prod) => {
+  const card = `<div class="flex justify-center w-40 h-40">
+        <div class="rounded-lg shadow-lg bg-white">
+          <img class="rounded-t-lg h-28 w-40" src=${prod.image} alt="" />
+          <div class="flex justify-between p-2">
+            <h5
+              class="text-gray-900 text-md font-medium mb-2"
+            >${prod.name}</h5>
+            <p class="text-gray-700 text-base mb-4">$ ${prod.price}</p>
+          </div>
+        </div>
+      </div>`;
+  cardContainer.innerHTML += card;
 });

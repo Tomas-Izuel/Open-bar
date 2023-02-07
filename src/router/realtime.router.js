@@ -16,8 +16,8 @@ realtimeproducts.get("/", async (req, res) => {
 realtimeproducts.post("/", async (req, res) => {
   const prod = req.body;
   await pm.addProduct(prod);
-  socketServer.sockets.emit("sendProduct", "Hola mundo");
-  res.redirect("/");
+  socketServer.sockets.emit("sendProduct", prod);
+  res.redirect("/realtimeproducts");
 });
 
 export default realtimeproducts;
