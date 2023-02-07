@@ -8,8 +8,7 @@ routerProducts.get("/", async (req, res) => {
   const { limit } = req.query;
   const products = await pm.getProducts(parseInt());
   const newProduct = products.slice(0, limit);
-  res.json({ mesage: "Products sent succesfully", newProduct });
-  res.send(200);
+  res.render("home", { products: newProduct });
 });
 
 routerProducts.get("/:idProduct", async (req, res) => {
