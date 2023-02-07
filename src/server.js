@@ -1,15 +1,24 @@
 import express from "express";
-import routerProducts from "./src/router/products.router.js";
-import routerCart from "./src/router/cart.router.js";
+import { __dirname } from "./utils.js";
+import handlebars from "express-handlebars";
+import { Server } from "socket.io";
+import routerProducts from "./router/products.router.js";
+import routerCart from "./router/cart.router.js";
 
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
+
+app.engine("handlebars", handlebars.engine());
+app.set("views", __dirname + "/views");
+app.set("view engine", "handlebars");
 
 app.use("/api/products", routerProducts);
 app.use("/api/cart", routerCart);
 
-app.listen(8080, () => {
+const httpServer = app.listen(8080, () => {
   //Los setTimeout no tienen ninguna utilidad, lo hice para probar los colores de la consola
   console.log("\u001b[" + 34 + "m" + "Starting server..." + "\u001b[0m");
   setTimeout(() => {
@@ -30,3 +39,7 @@ app.listen(8080, () => {
     }, 800);
   }, 1500);
 });
+
+export const socketServer = new Server(httpServer);
+
+socketServer.on("connection", (socket) => {});
