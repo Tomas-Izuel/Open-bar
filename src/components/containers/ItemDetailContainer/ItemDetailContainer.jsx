@@ -7,21 +7,32 @@ import { getItemById } from "../../../services/firebase";
 
 const ItemDetailContainer = () => {
   const [product, setProduct] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const { detailId } = useParams();
 
   useEffect(() => {
-    // fetch(path)
-    //   .then((response) => response.json())
-    //   .then((objects) => {
-    //     setProduct(objects.find((prod) => prod.id === parseInt(detailId)));
-    //   })
     getItemById(detailId).then((product) => {
+      setIsLoading(false);
       setProduct(product);
     });
   }, []);
 
   return (
-    <>{product !== undefined ? <ItemDetail product={product} /> : <Loader />}</>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : product.name !== undefined ? (
+        <>
+          <ItemDetail product={product} />
+        </>
+      ) : (
+        <>
+          <h1 className=" pt-36 text-xl text-center">
+            No se encontro el producto solicitado
+          </h1>
+        </>
+      )}
+    </>
   );
 };
 

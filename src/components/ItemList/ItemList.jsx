@@ -1,9 +1,9 @@
 import ItemCard from "../ItemCard/ItemCard";
 
-const ItemList = ({ products }, { productsId }) => {
+const ItemList = ({ products }) => {
   return (
     <section className="flex justify-start items-start pt-24 pb-36 flex-col gap-10">
-      <h1 className=" self-center text-xl">Our catalogue of {productsId}</h1>
+      <h1 className=" self-center text-2xl">Our catalogue</h1>
       <div>
         <div className="flex justify-center items-center flex-wrap gap-5">
           {products.map((product) => (

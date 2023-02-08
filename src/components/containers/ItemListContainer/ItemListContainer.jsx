@@ -6,28 +6,36 @@ import Loader from "../../Loader/Loader";
 
 const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { productsId } = useParams();
 
   useEffect(() => {
     if (productsId) {
-      // getItems().then((response) => {
-      //   setProducts(
-      //     response.filter((product) => product.category === productsId)
-      //   );
-      // });
       getItemByCategory(productsId).then((response) => {
+        setIsLoading(false);
         setProducts(response);
       });
     } else {
-      getItems().then((response) => setProducts(response));
+      getItems().then((response) => {
+        setIsLoading(false);
+        setProducts(response);
+      });
     }
   }, [productsId]);
   return (
     <>
-      {products.length === 0 ? (
+      {isLoading ? (
         <Loader />
+      ) : products.length === 0 ? (
+        <>
+          <h1 className=" pt-36 text-xl text-center">
+            No se encuentran productos para esta categoria
+          </h1>
+        </>
       ) : (
-        <ItemList products={products} productsId={productsId} />
+        <>
+          <ItemList products={products} productsId={productsId} />
+        </>
       )}
     </>
   );

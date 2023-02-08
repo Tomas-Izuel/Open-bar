@@ -3,19 +3,51 @@ import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import Swal from "sweetalert2";
 import { NavLink } from "react-router-dom";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 
 const ItemListCart = ({ products }) => {
   const { getTotal, setCartList, cartList } = useContext(CartContext);
 
-  const puchaseProducts = () => {
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Your puchase is complete",
-      showConfirmButton: false,
-      timer: 2000,
+  const puchaseProducts = async () => {
+    const { value: desk } = await Swal.fire({
+      title: "Enter your desk number",
+      input: "number",
+      inputLabel: "Your desk number",
+      inputPlaceholder: "Enter your desk number",
     });
-    setCartList([]);
+    if (desk) {
+      const date = new Date();
+      const order = {
+        desk: desk,
+        total: getTotal(),
+        date: date.toLocaleString(),
+        isActive: true,
+        items: cartList.map(({ id, name, price, cant }) => ({
+          id,
+          name,
+          price,
+          cant,
+        })),
+      };
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your puchase is complete",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+
+      const db = getFirestore();
+
+      const queryCollection = collection(db, "orders");
+      addDoc(queryCollection, order)
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch((err) => alert(err));
+      sessionStorage.setItem("order", order);
+      setCartList([]);
+    }
   };
   return (
     <section className="flex justify-center items-center pt-24 pb-36 flex-col gap-10">
@@ -45,6 +77,17 @@ const ItemListCart = ({ products }) => {
               Pay
             </button>
           </div>
+        </>
+      ) : sessionStorage.getItem("order") ? (
+        <>
+          <h1 className="pt-24 text-xl text-center px-4 text-bold">
+            You have a order in progress, but you can do another order
+          </h1>
+          <NavLink to={"/"}>
+            <button className=" bg-amber-500 p-1 rounded-md font-semibold text-black w-48">
+              Go to the store
+            </button>
+          </NavLink>
         </>
       ) : (
         <>

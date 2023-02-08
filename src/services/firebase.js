@@ -24,7 +24,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 export async function getItems() {
   const productsCollectionRef = collection(db, "products");
