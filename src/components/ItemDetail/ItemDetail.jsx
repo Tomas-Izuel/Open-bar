@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartContext";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const ItemDetail = ({ product }) => {
   const { addToCartContext } = useContext(CartContext);
+  const [isInCount, setIsInCount] = useState(true);
   const [counter, setCounter] = useState(1);
 
   const increase = () => {
@@ -16,6 +18,7 @@ const ItemDetail = ({ product }) => {
     }
   };
   const addToCart = () => {
+    setIsInCount(false);
     addToCartContext({ ...product, cant: counter });
 
     Swal.fire({
@@ -56,12 +59,27 @@ const ItemDetail = ({ product }) => {
                   -
                 </button>
               </div>
-              <button
-                className=" bg-yellow-400 text-gray-900 w-full p-1 rounded-lg"
-                onClick={addToCart}
-              >
-                Add to cart
-              </button>
+              {isInCount ? (
+                <button
+                  className=" bg-yellow-400 text-gray-900 w-full p-1 rounded-lg"
+                  onClick={addToCart}
+                >
+                  Add to cart
+                </button>
+              ) : (
+                <div className="flex flex-col gap-2 w-full">
+                  <Link to={"/"}>
+                    <button className=" bg-yellow-400 text-gray-900 w-full p-1 rounded-lg">
+                      Return to the store
+                    </button>
+                  </Link>
+                  <Link to={"/cart"}>
+                    <button className=" bg-yellow-200 text-gray-900 w-full p-1 rounded-lg">
+                      Go to cart
+                    </button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
