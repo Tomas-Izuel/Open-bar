@@ -26,4 +26,8 @@ Open Bar is the app designed specifically for bars to sell their products more e
 
 For the moment, openBar is only builded to mobile devices. It's extremely recomended to not use in other devices
 
+### Desk codes:
+
+- awf2123
+
 #### [Tomas Izuel](https://github.com/Tomas-Izuel) - 2023 - [CoderHouse](https://www.coderhouse.com/)

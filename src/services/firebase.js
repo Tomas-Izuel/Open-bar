@@ -62,3 +62,18 @@ export async function getItemByCategory(category) {
   });
   return docsData;
 }
+
+export async function getOrdersDesk(deskCode) {
+  const productsCollectionRef = collection(db, "orders");
+  const queryItem = query(productsCollectionRef, where("desk", "==", deskCode));
+  const snapshot = await getDocs(queryItem);
+  const docsData = snapshot.docs.map((doc) => {
+    const order = {
+      id: doc.id,
+      isActive: doc.data().isActive,
+      time: doc.data().date,
+    };
+    return { ...order };
+  });
+  return docsData;
+}
