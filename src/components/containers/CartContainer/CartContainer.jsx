@@ -24,7 +24,7 @@ const CartContainer = () => {
         email: email,
         desk: sessionStorage.getItem("desk"),
         total: getTotal(),
-        date: date.toLocaleString(),
+        date: date.toLocaleDateString(),
         isActive: true,
         items: cartList.map(({ id, name, price, cant }) => ({
           id,
