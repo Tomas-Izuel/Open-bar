@@ -6,6 +6,8 @@ import Loader from "../../Loader/Loader";
 import Swal from "sweetalert2";
 
 const ItemListContainer = () => {
+  const desks = ["tomy1", "tomy2", "tomy3", "tomy4"];
+
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { productsId } = useParams();
@@ -15,12 +17,13 @@ const ItemListContainer = () => {
       const length = sessionStorage.getItem("desk").length;
     } catch {
       const { value: formValues } = Swal.fire({
-        title: "Multiple inputs",
+        title: "Welcome!, complete the form to process your orders",
         html:
           "<label>Insert desk code</label>" +
           '<input id="swal-input1" class="swal2-input">' +
-          "<label>Insert client name</label>" +
-          '<input id="swal-input2" class="swal2-input">',
+          "<label>Insert your name as client</label>" +
+          '<input id="swal-input2" class="swal2-input">' +
+          "<p>If you are testing, check the desk codes in GitHub README.</p>",
         focusConfirm: false,
         preConfirm: () => {
           return [
@@ -35,8 +38,15 @@ const ItemListContainer = () => {
         ) {
           setDeskNumber();
         } else {
-          sessionStorage.setItem("desk", JSON.stringify(formValues.value[0]));
-          sessionStorage.setItem("client", JSON.stringify(formValues.value[1]));
+          if (desks.includes(formValues.value[0])) {
+            sessionStorage.setItem("desk", JSON.stringify(formValues.value[0]));
+            sessionStorage.setItem(
+              "client",
+              JSON.stringify(formValues.value[1])
+            );
+          } else {
+            setDeskNumber();
+          }
         }
       });
     }

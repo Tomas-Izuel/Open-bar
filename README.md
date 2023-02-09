@@ -28,7 +28,10 @@ For the moment, openBar is only builded to mobile devices. It's extremely recome
 
 ### Desk codes:
 
-- awf2123
+- tomy1
+- tomy2
+- tomy3
+- tomy4
 
 ### Features to add:
 
