@@ -14,17 +14,29 @@ const ItemListContainer = () => {
     try {
       const length = sessionStorage.getItem("desk").length;
     } catch {
-      const { value: desk } = Swal.fire({
-        title: "Input desk code",
-        input: "text",
-        inputLabel: "The code is in your desk",
-        text: "If you are testing, insert random code or one of the README codes",
-        inputPlaceholder: "XFcr321",
-      }).then((desk) => {
-        if (desk.value === undefined) {
+      const { value: formValues } = Swal.fire({
+        title: "Multiple inputs",
+        html:
+          "<label>Insert desk code</label>" +
+          '<input id="swal-input1" class="swal2-input">' +
+          "<label>Insert client name</label>" +
+          '<input id="swal-input2" class="swal2-input">',
+        focusConfirm: false,
+        preConfirm: () => {
+          return [
+            document.getElementById("swal-input1").value,
+            document.getElementById("swal-input2").value,
+          ];
+        },
+      }).then((formValues) => {
+        if (
+          formValues.value[0] === undefined ||
+          formValues.value[1] === undefined
+        ) {
           setDeskNumber();
         } else {
-          sessionStorage.setItem("desk", JSON.stringify(desk.value));
+          sessionStorage.setItem("desk", JSON.stringify(formValues.value[0]));
+          sessionStorage.setItem("client", JSON.stringify(formValues.value[1]));
         }
       });
     }

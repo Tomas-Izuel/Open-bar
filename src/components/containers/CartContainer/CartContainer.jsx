@@ -23,8 +23,9 @@ const CartContainer = () => {
       const order = {
         email: email,
         desk: sessionStorage.getItem("desk"),
+        client: sessionStorage.getItem("client"),
         total: getTotal(),
-        date: date.toLocaleDateString(),
+        date: date.toLocaleString(),
         isActive: true,
         items: cartList.map(({ id, name, price, cant }) => ({
           id,
@@ -53,9 +54,10 @@ const CartContainer = () => {
   };
 
   useEffect(() => {
-    getOrdersDesk(sessionStorage.getItem("desk")).then((response) =>
-      setOrders(response)
-    );
+    getOrdersDesk(
+      sessionStorage.getItem("desk"),
+      sessionStorage.getItem("client")
+    ).then((response) => setOrders(response));
   }, [cartList]);
 
   const cleanCart = () => {

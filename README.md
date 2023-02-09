@@ -35,10 +35,4 @@ For the moment, openBar is only builded to mobile devices. It's extremely recome
 - Cancel an order that was sent
 - Select the way to pay at the moment of send and order
 
-### Bugs to fix in the future
-
-- The consult to firestore in the orders filter by the desk code and the date, but if the one order is sended at the end of one day, for example at 11:45pm, the app don't push this order in the order list of the desk, and probably that order was made by the same customers.
-
-To fix this is needed a complex query with an OR, like 'where("date", "==", date.toLocaleDateString()) || where("date", "==", yesterdayDate.toLocaleDateString())'
-
 #### [Tomas Izuel](https://github.com/Tomas-Izuel) - 2023 - [CoderHouse](https://www.coderhouse.com/)

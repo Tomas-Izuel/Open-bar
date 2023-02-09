@@ -63,13 +63,13 @@ export async function getItemByCategory(category) {
   return docsData;
 }
 
-export async function getOrdersDesk(deskCode) {
+export async function getOrdersDesk(deskCode, client) {
   const date = new Date();
   const productsCollectionRef = collection(db, "orders");
   const queryItem = query(
     productsCollectionRef,
     where("desk", "==", deskCode),
-    where("date", "==", date.toLocaleDateString())
+    where("client", "==", client)
   );
   const snapshot = await getDocs(queryItem);
   const docsData = snapshot.docs.map((doc) => {
