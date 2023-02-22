@@ -1,7 +1,11 @@
 import React from "react";
 
 const OrderCard = (props) => {
-  const styleStatus = props.status ? "text-green-600" : "text-red-600";
+  const cancelOrder = (id) => {
+    console.log(id);
+  };
+  const styleStatus =
+    props.status === "in progress" ? "text-green-600" : "text-slate-500";
   return (
     <div className="bg-white p-3 text-black rounded-lg">
       <h3 className="">
@@ -12,10 +16,22 @@ const OrderCard = (props) => {
         <p>
           Status:{" "}
           <span className={styleStatus}>
-            {props.status ? "Active" : "Inactive"}
+            {props.status === "canceled" ? (
+              <del>{props.status}</del>
+            ) : (
+              <>{props.status}</>
+            )}
           </span>
         </p>
       </div>
+      <button
+        className=" bg-slate-300 w-full p-1 rounded-md"
+        onClick={() => {
+          cancelOrder(props.id);
+        }}
+      >
+        Cancel order
+      </button>
     </div>
   );
 };

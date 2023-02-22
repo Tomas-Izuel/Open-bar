@@ -8,6 +8,7 @@ import {
   getDoc,
   query,
   where,
+  updateDoc,
 } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -75,7 +76,7 @@ export async function getOrdersDesk(deskCode, client) {
   const docsData = snapshot.docs.map((doc) => {
     const order = {
       id: doc.id,
-      isActive: doc.data().isActive,
+      status: doc.data().status,
       time: doc.data().date,
     };
     return { ...order };

@@ -26,7 +26,7 @@ const CartContainer = () => {
         client: sessionStorage.getItem("client"),
         total: getTotal(),
         date: date.toLocaleString(),
-        isActive: true,
+        status: "in progress",
         items: cartList.map(({ id, name, price, cant }) => ({
           id,
           name,
@@ -95,7 +95,7 @@ const CartContainer = () => {
               <OrderCard
                 id={order.id}
                 time={order.time}
-                status={order.isActive}
+                status={order.status}
                 key={order.id}
               />
             ))}
