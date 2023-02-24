@@ -1,10 +1,9 @@
 import fs from "fs";
+import { __dirname } from "../../utils.js";
 
-class ProductManager {
-  constructor(path) {
-    this.path = path;
-  }
+const path = __dirname + "/storage/products.json";
 
+export default class ProductManager {
   async #validateProduct(product) {
     //Este metodo es unicamente de validacion, por esto esta privado, no debe ser accesible por el usuario
     if (
@@ -36,12 +35,12 @@ class ProductManager {
   }
 
   async getProducts() {
-    if (fs.existsSync(this.path)) {
-      const products = await fs.promises.readFile(this.path, "utf-8");
+    if (fs.existsSync(path)) {
+      const products = await fs.promises.readFile(path, "utf-8");
       return JSON.parse(products);
     } else {
-      await fs.writeFile(this.path, "[]");
-      return await fs.readFile(this.path, "utf8");
+      await fs.promises.writeFile(path, "[]");
+      return await fs.promises.readFile(path, "utf8");
     }
   }
 
@@ -53,13 +52,13 @@ class ProductManager {
     if (await this.#validateProduct(product)) {
       products.push(product);
       await fs.promises.writeFile(
-        this.path,
+        path,
         JSON.stringify(products, null, "\t"),
         "utf-8"
       );
-      return "Producto agregado con exito";
+      return product;
     } else {
-      return "No se pudo agregar el producto";
+      return false;
     }
   }
 
@@ -72,15 +71,19 @@ class ProductManager {
   async deleteProduct(id) {
     const products = await this.getProducts();
     const newProducts = products.filter((product) => product.id !== id); //Creo un nuevo array con los productos sin el que se desea borrar y sobreescribo el .json
-    await fs.promises.writeFile(this.path, JSON.stringify(newProducts));
-    return "Producto eliminado con exito";
+    await fs.promises.writeFile(path, JSON.stringify(newProducts), null);
+    return newProducts;
   }
 
   async updateProduct(id, product) {
     //El usuario pasa como parametro el atributo que desea modificar, y se asigna dinamicamente a los atributos del objeto. El switch tambien me otorga cierta seguridad ya que si el usuario ingresa un valor que no corresponde a un atributo, no se creara un atributo nuevo con este valor, simplemente se ignorara.
     const products = await this.getProducts();
+    let produ,
+      flag = false;
     products.forEach((prod) => {
       if (prod.id === id) {
+        produ = prod;
+        flag = true;
         prod.category = product.category;
         prod.name = product.name;
         prod.price = products.price;
@@ -90,9 +93,11 @@ class ProductManager {
         prod.stock = product.stock;
       }
     });
-    await fs.promises.writeFile(this.path, JSON.stringify(products));
-    return "Producto editado correctamente";
+    if (flag) {
+      await fs.promises.writeFile(path, JSON.stringify(products));
+      return product;
+    } else {
+      return false;
+    }
   }
 }
-
-export default ProductManager;

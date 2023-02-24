@@ -1,31 +1,33 @@
 import fs from "fs";
+import { __dirname } from "../../utils.js";
 
-class CartManager {
-  constructor(path) {
-    this.path = path;
-  }
+const path = __dirname + "/storage/carts.json";
 
+export default class CartManager {
   async createCart() {
     const cart = {
       cid: Math.floor(Math.random() * 100000),
       products: [],
     };
-    if (fs.existsSync(this.path)) {
+    if (fs.existsSync(path)) {
       const carts = await this.#getCarts();
       carts.push(cart);
-      await fs.promises.writeFile(this.path, JSON.stringify(carts, null));
+      await fs.promises.writeFile(path, JSON.stringify(carts, null));
       return cart.cid;
     } else {
-      await fs.writeFile(this.path, "[]");
-      await fs.promises.writeFile(this.path, JSON.stringify(carts, null));
+      await fs.writeFile(path, "[]");
+      await fs.promises.writeFile(path, JSON.stringify(carts, null));
       return cart.id;
     }
   }
 
   async #getCarts() {
-    if (fs.existsSync(this.path)) {
-      const carts = await fs.promises.readFile(this.path, "utf8");
+    if (fs.existsSync(path)) {
+      const carts = await fs.promises.readFile(path, "utf8");
       return JSON.parse(carts);
+    } else {
+      fs.promises.writeFile(path, []);
+      return [];
     }
   }
 
@@ -36,12 +38,12 @@ class CartManager {
         c.products = cart.products;
       }
     });
-    await fs.promises.writeFile(this.path, JSON.stringify(carts, null));
+    await fs.promises.writeFile(path, JSON.stringify(carts, null));
   }
 
   async getCart(id) {
-    if (fs.existsSync(this.path)) {
-      const carts = await fs.promises.readFile(this.path, "utf8");
+    if (fs.existsSync(path)) {
+      const carts = await fs.promises.readFile(path, "utf8");
       return JSON.parse(carts).find((c) => c.cid === id);
     } else {
       return false;
@@ -64,5 +66,3 @@ class CartManager {
     return cart;
   }
 }
-
-export default CartManager;

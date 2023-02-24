@@ -1,8 +1,9 @@
 import { Router } from "express";
-import ProductManager from "../clases/ProductManager.js";
+// import ProductManager from "../dao/fileManagers/ProductManager.js";
+import ProductManager from "../dao/mongoManagers/ProductManager.js";
 
 const routerProducts = Router();
-const pm = new ProductManager("./src/storage/products.json");
+const pm = new ProductManager();
 
 routerProducts.get("/", async (req, res) => {
   const { limit } = req.query;
