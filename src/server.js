@@ -4,6 +4,7 @@ import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import routerProducts from "./router/products.router.js";
 import routerCart from "./router/cart.router.js";
+import routerMessages from "./router/messages.router.js";
 import "./dao/dbConfig.js";
 
 const app = express();
@@ -20,6 +21,7 @@ app.set("view engine", "handlebars");
 
 app.use("/api/products", routerProducts);
 app.use("/api/cart", routerCart);
+app.use("/api/messages", routerMessages);
 
 const httpServer = app.listen(PORT, () => {
   //Los setTimeout no tienen ninguna utilidad, lo hice para probar los colores de la consola

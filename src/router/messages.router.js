@@ -1,5 +1,5 @@
 import { Router } from "express";
-import MessageManager from "../dao/mongoManagers/MessagesManager";
+import MessageManager from "../dao/mongoManagers/MessagesManager.js";
 
 const routerMessages = Router();
 const mm = new MessageManager();
@@ -14,3 +14,5 @@ routerMessages.post("/", async (req, res) => {
   const newMessage = mm.sendMessage(m);
   res.status(200).send(newMessage);
 });
+
+export default routerMessages;
