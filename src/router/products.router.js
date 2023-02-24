@@ -14,9 +14,8 @@ routerProducts.get("/", async (req, res) => {
 
 routerProducts.get("/:idProduct", async (req, res) => {
   const { idProduct } = req.params;
-  const id = parseInt(idProduct);
-  const product = await pm.getProductById(id);
-  res.json({ mesage: `Product with id ${id} sent succesfully`, product });
+  const product = await pm.getProductById(idProduct);
+  res.status(200).render("home", { product: product });
 });
 
 routerProducts.post("/", async (req, res) => {

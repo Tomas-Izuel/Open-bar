@@ -3,7 +3,7 @@ import { productsModel } from "../models/products.model.js";
 export default class ProductManager {
   async getProducts() {
     try {
-      const products = await productsModel.find();
+      const products = await productsModel.find().lean(); //El lean lo agregue porque sino handlebars no me dejaba representar las cosas
       return products;
     } catch (err) {
       return err.message;

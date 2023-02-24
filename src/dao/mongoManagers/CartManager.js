@@ -3,7 +3,10 @@ import { cartModel } from "../models/cart.model.js";
 export default class CartManager {
   async createCart() {
     try {
-      const cart = await cartModel.create();
+      const c = {
+        products: [],
+      };
+      const cart = await cartModel.create(c);
       return cart;
     } catch (err) {
       return err.message;
