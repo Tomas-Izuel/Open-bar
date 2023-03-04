@@ -1,6 +1,7 @@
 import express from "express";
 import { __dirname } from "./utils/dirname.js";
 import handlebars from "express-handlebars";
+import { routerProducts } from "./router/products.router.js";
 import { Server } from "socket.io";
 import "./dao/daoConfig.js";
 
@@ -19,8 +20,8 @@ app.set("view engine", "handlebars");
 
 //routes
 app.use("/api/products", routerProducts);
-app.use("/api/cart", routerCart);
-app.use("/api/messages", routerMessages);
+// app.use("/api/cart", routerCart);
+// app.use("/api/messages", routerMessages);
 
 app.listen(PORT, () => {
   console.log("");
