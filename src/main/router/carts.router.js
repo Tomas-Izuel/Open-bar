@@ -37,7 +37,8 @@ routerCart.get("/:cid", async (req, res) => {
 routerCart.post("/:cid/product/:pid", async (req, res) => {
   const cid = req.params.cid;
   const pid = req.params.pid;
-  const cart = await cm.addProductToCart(cid, pid);
+  const { quantity = 1 } = req.body;
+  const cart = await cm.addProductToCart(cid, pid, quantity);
   if (cart) {
     res.status(200).json(cart);
   } else {
@@ -48,32 +49,43 @@ routerCart.post("/:cid/product/:pid", async (req, res) => {
 routerCart.delete("/:cid/product/:pid", async (req, res) => {
   const cid = req.params.cid;
   const pid = req.params.pid;
-  const deletedProduct = await cm.deleteProductFromCart(cid, pid);
-  res.json({
-    mensaje: `Producto eliminado del carrito ${cid}`,
-    carrito: deletedProduct,
-  });
+  const newCart = await cm.deleteCartProductById(cid, pid);
+  if (newCart) {
+    res.status(200).json(newCart);
+  } else {
+    res.status(404).send({ message: "Cart or product not found" });
+  }
 });
 
 routerCart.delete("/:cid", async (req, res) => {
   const cid = req.params.cid;
   const emptyCart = await cm.emptyCart(cid);
-  res.json({ mensaje: `Carrito ${cid} vaciado` });
+  if (emptyCart) {
+    res.status(200).json(emptyCart);
+  } else {
+    res.status(404).send({ message: "Cart not found" });
+  }
 });
 
 routerCart.put("/:cid/product/:pid", async (req, res) => {
   const cid = req.params.cid;
   const pid = req.params.pid;
-  const quantity = req.body.quantity;
-  //console.log('aca',quantity)
-  const editedProductQty = await cm.editProductQty(cid, pid, quantity);
-  res.json({ mensaje: `Producto editado: ${editedProductQty}` });
+  const { quantity } = req.body;
+  const newCart = await cm.setQuantityProduct(cid, pid, quantity);
+  if (newCart) {
+    res.status(200).json(newCart);
+  } else {
+    res.status(404).send({ message: "Cart or product not found" });
+  }
 });
 
 routerCart.put("/:cid", async (req, res) => {
   const cid = req.params.cid;
-  const newCart = req.body.cart;
-  console.log(newCart);
-  const editedCart = await cm.editCart(cid, newCart);
-  res.json({ mensaje: `Carrito editado: ${editedCart}` });
+  const { products } = req.body;
+  const editedCart = await cm.editCart(cid, products);
+  if (editedCart) {
+    res.status(200).json(editedCart);
+  } else {
+    res.status(404).send({ message: "Cart not found" });
+  }
 });

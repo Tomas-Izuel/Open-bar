@@ -30,3 +30,20 @@ routerProducts.get("/:pid", async (req, res) => {
   const product = await pm.getProductById(req.params.pid);
   res.status(200).json(product);
 });
+
+routerProducts.post("/", async (req, res) => {
+  const prod = req.body;
+  res.json(await pm.addProduct(prod));
+});
+
+routerProducts.delete("/:idProduct", async (req, res) => {
+  const { idProduct } = req.params;
+  const id = parseInt(idProduct);
+  res.json(await pm.deleteProduct(id));
+});
+
+routerProducts.put("/:idProduct", async (req, res) => {
+  const { idProduct } = req.params;
+  const prod = req.body;
+  res.json(await pm.updateProduct(parseInt(idProduct), prod));
+});

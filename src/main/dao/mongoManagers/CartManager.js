@@ -37,10 +37,14 @@ export default class CartManager {
     }
   }
 
-  async addProductToCart(cid, pid) {
+  async addProductToCart(cid, pid, quantity) {
     try {
       const cart = await cartModel.findById(cid);
-      cart.products.push(pid);
+      const product = {
+        _id: pid,
+        quantity: quantity,
+      };
+      cart.products.push(product);
       const updatedCart = await cart.save();
       return updatedCart;
     } catch (error) {
@@ -52,11 +56,22 @@ export default class CartManager {
   async deleteCartProductById(cid, pid) {
     try {
       const cart = await cartModel.findById(cid);
-      const index = await cart.products.indexOf(pid);
-      if (index) {
-        cart.products.splice(index, 1);
-        await cart.save();
-        return cart;
+      const newProducts = await cart.products.filter((element) => {
+        if (JSON.stringify(element._id).substring(1, 25) !== pid) {
+          return element;
+        }
+      });
+      if (
+        newProducts.length !== cart.products.length ||
+        newProducts[0] === undefined
+      ) {
+        if (newProducts[0]) {
+          cart.products = newProducts;
+        } else {
+          cart.products = [];
+        }
+        const savedCart = await cart.save();
+        return savedCart;
       } else {
         return false;
       }
@@ -68,10 +83,10 @@ export default class CartManager {
 
   async emptyCart(cid) {
     try {
-      const cart = await this.getCartById(cid);
+      const cart = await cartModel.findById(cid);
       cart.products = [];
 
-      await cart.save();
+      return await cart.save();
     } catch (error) {
       console.log(error);
       return false;
@@ -80,12 +95,17 @@ export default class CartManager {
 
   async setQuantityProduct(cid, pid, quantity) {
     try {
-      const cart = await this.getCartById(cid);
-      const index = await cart.products.indexOf(pid);
-      if (index) {
-        cart.products[index] = quantity;
-        await cart.save();
-        return cart;
+      const cart = await cartModel.findById(cid);
+      let flag = false;
+      cart.products.forEach((element) => {
+        if (JSON.stringify(element._id).substring(1, 25) === pid) {
+          element.quantity = quantity;
+          flag = true;
+        }
+      });
+      if (flag) {
+        const newCart = await cart.save();
+        return newCart;
       } else {
         return false;
       }
@@ -95,15 +115,13 @@ export default class CartManager {
     }
   }
 
-  async editCart(cid, newCart) {
+  async editCart(cid, newProducts) {
     try {
-      const cart = await cartModel.findOne({ _id: cid });
-      if (!cart) return console.log("carrito no encontrado");
+      const cart = await cartModel.findById(cid);
+      cart.products = newProducts;
 
-      cart.cart = newCart;
-
-      await cart.save();
-      return cart.cart;
+      const newCart = await cart.save();
+      return newCart;
     } catch (error) {
       console.log(error);
     }
