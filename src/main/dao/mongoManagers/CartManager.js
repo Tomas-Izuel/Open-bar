@@ -26,11 +26,8 @@ export default class CartManager {
 
   async getCartById(cid) {
     try {
-      const cart = await cartModel
-        .findById(cid)
-        .populate({ path: "cart.id" })
-        .lean();
-      return cart;
+      const cart = await cartModel.find({ _id: cid }).lean();
+      return cart[0]; //No se porque este metodo me devuelve un arreglo con el producto
     } catch (error) {
       console.log(error);
       return false;
@@ -41,7 +38,7 @@ export default class CartManager {
     try {
       const cart = await cartModel.findById(cid);
       const product = {
-        _id: pid,
+        idProduct: pid,
         quantity: quantity,
       };
       cart.products.push(product);
@@ -57,7 +54,7 @@ export default class CartManager {
     try {
       const cart = await cartModel.findById(cid);
       const newProducts = await cart.products.filter((element) => {
-        if (JSON.stringify(element._id).substring(1, 25) !== pid) {
+        if (JSON.stringify(element.idProduct).substring(1, 25) !== pid) {
           return element;
         }
       });
@@ -98,7 +95,7 @@ export default class CartManager {
       const cart = await cartModel.findById(cid);
       let flag = false;
       cart.products.forEach((element) => {
-        if (JSON.stringify(element._id).substring(1, 25) === pid) {
+        if (JSON.stringify(element.idProduct).substring(1, 25) === pid) {
           element.quantity = quantity;
           flag = true;
         }

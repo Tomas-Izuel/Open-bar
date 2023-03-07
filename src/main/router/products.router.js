@@ -26,10 +26,10 @@ routerProducts.get("/", async (req, res) => {
   res.status(200).json(response);
 });
 
-routerProducts.get("/:pid", async (req, res) => {
-  const product = await pm.getProductById(req.params.pid);
-  res.status(200).json(product);
-});
+// routerProducts.get("/:pid", async (req, res) => {
+//   const product = await pm.getProductById(req.params.pid);
+//   res.status(200).json(product);
+// });
 
 routerProducts.post("/", async (req, res) => {
   const prod = req.body;

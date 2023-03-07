@@ -10,6 +10,7 @@ export default class ProductManager {
         page: page,
         sort: { price: sort },
         category: category,
+        lean: true,
       };
       const products = await productsModel.paginate(filter, options);
       return products;
