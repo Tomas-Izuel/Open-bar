@@ -44,3 +44,7 @@ routerViews.get("/cart/:cid", async (req, res) => {
     res.render("error", {});
   }
 });
+
+routerViews.get("/cart", async (req, res) => {
+  res.render("cartHome", {});
+});

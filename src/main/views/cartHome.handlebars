@@ -1,0 +1,26 @@
+<section class="d-flex justify-content-center align-items-center flex-column gap-3">
+    <h1>Parece que no tenemos guardado ningun carrito en esta sesion</h1>
+    <div>
+    <h4 class="">Pon el ID de tu carrito</h4>
+    <form id="formCarrito" class="">
+        <div class="form-group d-flex justify-content-center align-items-center flex-column gap-3">
+        <label for="exampleInputEmail1">Tu ID de carrito</label>
+        <input
+            type="text"
+            class="form-control"
+            id="idCarrito"
+            aria-describedby="emailHelp"
+            placeholder="El id que obtuviste al crear el carrito"
+        />
+        <button type="submit" class="btn btn-primary" id="buttonCarrito">Submit</button>
+        </div>
+    </form>
+</section>
+<script>
+    if(sessionStorage.getItem("idCarrito")){
+        window.location.href = `http://localhost:8080/views/cart/${sessionStorage.getItem("idCarrito")}`;
+    }
+  const formCarrito = document.getElementById("formCarrito");
+  formCarrito.onsubmit = function(e){ e.preventDefault(); const idCarrito =
+  document.getElementById("idCarrito").value; sessionStorage.setItem("idCarrito", idCarrito); window.location.href = `http://localhost:8080/views/cart/${sessionStorage.getItem("idCarrito")}`; }
+</script>
