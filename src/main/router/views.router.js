@@ -11,28 +11,36 @@ const sm = new SupportManager();
 routerViews.get("/products", async (req, res) => {
   const { limit = 10, page = 1, sort, category } = req.query;
   const products = await pm.getProducts(limit, page, sort, category);
-  const response = {
-    status: "success",
-    payload: products.docs,
-    totalPages: products.totalPages,
-    page: products.page,
-    prevPage: products.prevPage,
-    nextPage: products.nextPage,
-    hasPrevPage: products.hasPrevPage,
-    hasNextPage: products.hasNextPage,
-    prevLink: products.prevPage
-      ? `http://localhost:8080/views/products?page=${products.prevPage}`
-      : null,
-    nextLink: products.nextPage
-      ? `http://localhost:8080/views/products?page=${products.nextPage}`
-      : null,
-  };
-  res.render("products", { data: response });
+  if (products) {
+    const response = {
+      status: "success",
+      payload: products.docs,
+      totalPages: products.totalPages,
+      page: products.page,
+      prevPage: products.prevPage,
+      nextPage: products.nextPage,
+      hasPrevPage: products.hasPrevPage,
+      hasNextPage: products.hasNextPage,
+      prevLink: products.prevPage
+        ? `http://localhost:8080/views/products?page=${products.prevPage}`
+        : null,
+      nextLink: products.nextPage
+        ? `http://localhost:8080/views/products?page=${products.nextPage}`
+        : null,
+    };
+    res.render("products", { data: response });
+  } else {
+    res.render("error", {});
+  }
 });
 
 routerViews.get("/cart/:cid", async (req, res) => {
   const cid = req.params.cid;
   const cart = await cm.getCartById(cid);
-  console.log(cart.products[0]);
-  res.render("cart", { cart });
+  if (cart) {
+    const products = cart.products;
+    res.render("cart", { products: products, idCart: cid });
+  } else {
+    res.render("error", {});
+  }
 });
