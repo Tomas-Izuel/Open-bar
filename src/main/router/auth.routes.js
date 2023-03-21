@@ -67,3 +67,13 @@ routesAuth.get("/logout", async (req, res) => {
 routesAuth.get("/private", authMiddleware, async (req, res) => {
   res.send("<h1> Contenido Privado </h1>");
 });
+
+routesAuth.get(
+  "/registergh",
+  passport.authenticate("github", { scope: ["user:email"] }),
+  async () => {}
+);
+
+routesAuth.get("/github", passport.authenticate("github"), async (req, res) => {
+  res.send("<h1> Tu perfil de GitHub </h1>");
+});
