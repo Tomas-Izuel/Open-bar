@@ -1,0 +1,23 @@
+<section class="productListContainer flex flex-col gap-10">
+  <h1 class="text-white text-center text-xl"></h1>
+  <article class="d-flex justify-content-center align-items-center gap-3">
+    {{#each products}}
+      <div class="card" style="width: 30rem;">
+        <img src={{this.idProduct.image}} class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{this.idProduct.name}}</h5>
+          <p class="card-text">{{this.idProduct.description}}</p>
+          <p class="card-text">${{this.idProduct.price}}</p>
+        </div>
+      </div>
+    {{/each}}
+  </article>
+  <div class="flex felx-col w-screen justify-center items-center gap-5">
+    {{#if data.hasPrevPage}}
+      <a href={{data.prevLink}}><button class="btn btn-info">Prev page</button></a>
+    {{/if}}
+    {{#if data.hasNextPage}}
+      <a href={{data.nextLink}}><button class="btn btn-info">Next page</button></a>
+    {{/if}}
+  </div>
+</section>

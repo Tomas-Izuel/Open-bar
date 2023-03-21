@@ -1,0 +1,37 @@
+{{#if success}}
+  <p style="color:green">{{success}}</p>
+{{/if}}
+
+{{#if error}}
+  <p style="color:red">{{error}}</p>
+{{/if}}
+
+<form
+  action="/auth/login"
+  method="post"
+  style="width: 25%; margin: 0 auto;"
+  class="p-3 d-flex justify-content-center align-items-center flex-column"
+>
+  <div class="">
+    <label for="email" class="form-label">Email:</label>
+    <input
+      class="form-control"
+      type="text"
+      id="email"
+      placeholder="Email"
+      name="email"
+    />
+  </div>
+  <div class="">
+    <label for="password" class="form-label">Password</label>
+    <input
+      class="form-control"
+      type="password"
+      id="password"
+      placeholder="Password"
+      name="password"
+    />
+  </div>
+  <button type="submit" class="btn btn-success">LOGIN</button>
+  <p>Todavia no tenes cuenta? <a href="/auth/register">Registrate</a></p>
+</form>
