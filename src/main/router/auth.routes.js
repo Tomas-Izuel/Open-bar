@@ -39,7 +39,7 @@ routesAuth.post(
   "/register",
   passport.authenticate("register", {
     failureRedirect: "/views/error",
-    successRedirect: "/views/products",
+    successRedirect: "/auth/login",
     passReqToCallback: true,
   }),
   async (req, res) => {
@@ -74,6 +74,14 @@ routesAuth.get(
   async () => {}
 );
 
-routesAuth.get("/github", passport.authenticate("github"), async (req, res) => {
-  res.send("<h1> Tu perfil de GitHub </h1>");
-});
+routesAuth.get(
+  "/github",
+  passport.authenticate("github", {
+    session: true,
+  }),
+  async (req, res) => {
+    req.session.email = req.user.email;
+    req.session.type = "user";
+    return res.redirect("/views/products");
+  }
+);
